@@ -1,6 +1,6 @@
-python -m venv ./.vantage6_venv
+docker pull jupyter/datascience-notebook
 
-source ./.vantage6_venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-jupyter notebook
+docker run -d --name jupyter_notebook \
+    -p 8888:8888 \
+    -v "${PWD}":/home/jovyan/work \
+    jupyter/datascience-notebook
