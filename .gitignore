@@ -1,2 +1,6 @@
 .vantage6_venv/
 .ipynb_checkpoints/
+.ipython/
+.jupyter/
+.local/
+.cache/
