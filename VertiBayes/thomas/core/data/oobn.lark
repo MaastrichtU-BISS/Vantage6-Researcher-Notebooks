@@ -1,0 +1,32 @@
+// Lark EBNF grammar to parse OOBN files (from Hugin).
+oobn_class: "class" name properties [comment]
+name: CNAME
+
+properties: "{" property_type* "}"
+
+?property_type: property
+              | class_property
+
+property: name "=" value ";" [comment]
+?class_property: node | potential
+
+node: "node" name properties
+potential: "potential" "(" name ["|" parents] ")" properties
+parents: name*
+
+?value: string 
+      | number 
+      | tuple
+
+string: ESCAPED_STRING
+number: SIGNED_NUMBER
+tuple: "(" value* (comment value)* ")" [comment]
+
+comment: "%" /.+/ NEWLINE
+
+%import common.CNAME
+%import common.ESCAPED_STRING
+%import common.SIGNED_NUMBER
+%import common.NEWLINE
+%import common.WS
+%ignore WS

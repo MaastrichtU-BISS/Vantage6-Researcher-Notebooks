@@ -1,0 +1,249 @@
+{
+    "type": "BayesianNetwork",
+    "name": "Sprinkler",
+    "nodes": [
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "A",
+            "name": "Winter?",
+            "states": [
+                "a1",
+                "a0"
+            ],
+            "description": "",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "A"
+                ],
+                "states": {
+                    "A": [
+                        "a1",
+                        "a0"
+                    ]
+                },
+                "data": [
+                    0.6,
+                    0.4
+                ],
+                "description": "",
+                "conditioned": [
+                    "A"
+                ],
+                "conditioning": []
+            },
+            "position": [
+                210,
+                7
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "B",
+            "name": "Sprinkler?",
+            "states": [
+                "b1",
+                "b0"
+            ],
+            "description": "",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "A",
+                    "B"
+                ],
+                "states": {
+                    "A": [
+                        "a1",
+                        "a0"
+                    ],
+                    "B": [
+                        "b1",
+                        "b0"
+                    ]
+                },
+                "data": [
+                    0.2,
+                    0.8,
+                    0.75,
+                    0.25
+                ],
+                "description": "",
+                "conditioned": [
+                    "B"
+                ],
+                "conditioning": [
+                    "A"
+                ]
+            },
+            "position": [
+                88,
+                111
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "C",
+            "name": "Rain?",
+            "states": [
+                "c1",
+                "c0"
+            ],
+            "description": "",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "A",
+                    "C"
+                ],
+                "states": {
+                    "A": [
+                        "a1",
+                        "a0"
+                    ],
+                    "C": [
+                        "c1",
+                        "c0"
+                    ]
+                },
+                "data": [
+                    0.8,
+                    0.2,
+                    0.1,
+                    0.9
+                ],
+                "description": "",
+                "conditioned": [
+                    "C"
+                ],
+                "conditioning": [
+                    "A"
+                ]
+            },
+            "position": [
+                397,
+                103
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "D",
+            "name": "Wet grass?",
+            "states": [
+                "d1",
+                "d0"
+            ],
+            "description": "",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "B",
+                    "C",
+                    "D"
+                ],
+                "states": {
+                    "B": [
+                        "b1",
+                        "b0"
+                    ],
+                    "C": [
+                        "c1",
+                        "c0"
+                    ],
+                    "D": [
+                        "d1",
+                        "d0"
+                    ]
+                },
+                "data": [
+                    0.95,
+                    0.05,
+                    0.9,
+                    0.1,
+                    0.8,
+                    0.2,
+                    0.0,
+                    1.0
+                ],
+                "description": "",
+                "conditioned": [
+                    "D"
+                ],
+                "conditioning": [
+                    "B",
+                    "C"
+                ]
+            },
+            "position": [
+                218,
+                221
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "E",
+            "name": "Slippery Road?",
+            "states": [
+                "e1",
+                "e0"
+            ],
+            "description": "",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "C",
+                    "E"
+                ],
+                "states": {
+                    "C": [
+                        "c1",
+                        "c0"
+                    ],
+                    "E": [
+                        "e1",
+                        "e0"
+                    ]
+                },
+                "data": [
+                    0.7,
+                    0.3,
+                    0.0,
+                    1.0
+                ],
+                "description": "",
+                "conditioned": [
+                    "E"
+                ],
+                "conditioning": [
+                    "C"
+                ]
+            },
+            "position": [
+                506,
+                224
+            ]
+        }
+    ],
+    "edges": [
+        [
+            "A",
+            "B"
+        ],
+        [
+            "A",
+            "C"
+        ],
+        [
+            "B",
+            "D"
+        ],
+        [
+            "C",
+            "D"
+        ],
+        [
+            "C",
+            "E"
+        ]
+    ]
+}

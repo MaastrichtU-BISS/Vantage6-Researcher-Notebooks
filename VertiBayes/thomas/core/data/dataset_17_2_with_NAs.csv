@@ -1,0 +1,17 @@
+Case,H,S,E
+0,,F,T
+1,T,F,
+2,F,,F
+3,F,,T
+4,T,F,F
+5,T,F,T
+6,F,F,F
+7,T,F,T
+8,T,F,T
+9,F,F,T
+10,T,,
+11,T,T,T
+12,T,F,T
+13,T,T,T
+14,T,F,
+15,T,F,

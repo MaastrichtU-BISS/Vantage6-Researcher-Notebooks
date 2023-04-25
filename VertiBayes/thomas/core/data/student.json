@@ -1,0 +1,245 @@
+{
+    "type": "BayesianNetwork",
+    "name": "Student",
+    "nodes": [
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "I",
+            "name": "I",
+            "states": [
+                "i0",
+                "i1"
+            ],
+            "description": "Intelligence",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "I"
+                ],
+                "states": {
+                    "I": [
+                        "i0",
+                        "i1"
+                    ]
+                },
+                "data": [
+                    0.7,
+                    0.3
+                ],
+                "description": "Intelligence",
+                "conditioned": [
+                    "I"
+                ],
+                "conditioning": []
+            },
+            "position": [
+                352,
+                25
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "S",
+            "name": "S",
+            "states": [
+                "s0",
+                "s1"
+            ],
+            "description": "SAT Score",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "I",
+                    "S"
+                ],
+                "states": {
+                    "I": [
+                        "i0",
+                        "i1"
+                    ],
+                    "S": [
+                        "s0",
+                        "s1"
+                    ]
+                },
+                "data": [
+                    0.95,
+                    0.05,
+                    0.2,
+                    0.8
+                ],
+                "description": "SAT Score",
+                "conditioned": [
+                    "S"
+                ],
+                "conditioning": [
+                    "I"
+                ]
+            },
+            "position": [
+                437,
+                119
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "D",
+            "name": "D",
+            "states": [
+                "d0",
+                "d1"
+            ],
+            "description": "Difficulty",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "D"
+                ],
+                "states": {
+                    "D": [
+                        "d0",
+                        "d1"
+                    ]
+                },
+                "data": [
+                    0.6,
+                    0.4
+                ],
+                "description": "Difficulty",
+                "conditioned": [
+                    "D"
+                ],
+                "conditioning": []
+            },
+            "position": [
+                72,
+                20
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "G",
+            "name": "G",
+            "states": [
+                "g1",
+                "g2",
+                "g3"
+            ],
+            "description": "Grade",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "I",
+                    "D",
+                    "G"
+                ],
+                "states": {
+                    "I": [
+                        "i0",
+                        "i1"
+                    ],
+                    "D": [
+                        "d0",
+                        "d1"
+                    ],
+                    "G": [
+                        "g1",
+                        "g2",
+                        "g3"
+                    ]
+                },
+                "data": [
+                    0.3,
+                    0.4,
+                    0.3,
+                    0.05,
+                    0.25,
+                    0.7,
+                    0.9,
+                    0.08,
+                    0.02,
+                    0.5,
+                    0.3,
+                    0.2
+                ],
+                "description": "Grade",
+                "conditioned": [
+                    "G"
+                ],
+                "conditioning": [
+                    "I",
+                    "D"
+                ]
+            },
+            "position": [
+                206,
+                115
+            ]
+        },
+        {
+            "type": "DiscreteNetworkNode",
+            "RV": "L",
+            "name": "L",
+            "states": [
+                "l0",
+                "l1"
+            ],
+            "description": "Letter",
+            "cpt": {
+                "type": "CPT",
+                "scope": [
+                    "G",
+                    "L"
+                ],
+                "states": {
+                    "G": [
+                        "g1",
+                        "g2",
+                        "g3"
+                    ],
+                    "L": [
+                        "l0",
+                        "l1"
+                    ]
+                },
+                "data": [
+                    0.1,
+                    0.9,
+                    0.4,
+                    0.6,
+                    0.99,
+                    0.01
+                ],
+                "description": "Letter",
+                "conditioned": [
+                    "L"
+                ],
+                "conditioning": [
+                    "G"
+                ]
+            },
+            "position": [
+                209,
+                219
+            ]
+        }
+    ],
+    "edges": [
+        [
+            "I",
+            "S"
+        ],
+        [
+            "I",
+            "G"
+        ],
+        [
+            "D",
+            "G"
+        ],
+        [
+            "G",
+            "L"
+        ]
+    ]
+}

@@ -1,0 +1,400 @@
+class test
+{
+    inputs = ();
+    outputs = ();
+    node_size = (80 40);
+    HR_Desc = "";
+    HR_OOBN_CheckConsistency = "1";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_Function = "4";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_Utility_Arrange = "0";
+    HR_Monitor_Mean_Variance = "1";
+    HR_Monitor_Chance_Utility = "1";
+    HR_Monitor_InitStates = "10";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Compile_ApproxEpsilon = "1.0E-5";
+    HR_Compile_Approximate = "0";
+    HR_Compile_SaveToMemory = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "javax.swing.plaf.FontUIResource[family=DejaVu Sans,name=DejaVu Sans,style=plain,size=12]";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "0";
+    HR_Grid_Y = "40";
+    HR_Grid_X = "40";
+
+    node surv_02y
+    {
+	label = "surv_02y";
+	position = (255 418);
+	states = ("false" "true");
+	subtype = boolean;
+	HR_Constraint_adjuvant_tx = "NoArrow";
+	HR_Constraint_cTNM = "NoArrow";
+	HR_LinkMode = "[adjuvant_tx:0][cT:0][cN:0][cTNM:0][surv_05y:0]";
+    }
+
+    node surv_05y
+    {
+	label = "surv_05y";
+	position = (598 423);
+	states = ("false" "true");
+	subtype = boolean;
+	HR_Constraint_adjuvant_tx = "NoArrow";
+	HR_Constraint_cTNM = "NoArrow";
+	HR_LinkMode = "[adjuvant_tx:0][cTNM:0][surv_02y:0]";
+    }
+
+    node yod_cat
+    {
+	label = "yod_cat";
+	position = (798 137);
+	states = ("2005-2008" "2012-2014" "2009-2011");
+	HR_LinkMode = "[edition:0][cN:0][grade:0][cT:0][age:0][surv_05y:0][surv_02y:0][cTNM:0][adjuvant_tx:0]";
+    }
+
+    node grade
+    {
+	label = "grade";
+	position = (241 40);
+	states = ("g3" "g2");
+	HR_LinkMode = "[cT:0][edition:0][cN:0][age:0][surv_05y:0][surv_02y:0][cTNM:0][adjuvant_tx:0]";
+    }
+
+    node edition
+    {
+	label = "edition";
+	position = (688 51);
+	states = ("TNM 6" "TNM 7");
+	HR_LinkMode = "[yod_cat:0][cTNM:0][cN:0][cT:0][age:0][surv_05y:0][surv_02y:0][adjuvant_tx:0]";
+    }
+
+    node cTNM
+    {
+	label = "cTNM";
+	position = (462 263);
+	states = ("II" "III" "IV" "I");
+	HR_Constraint_surv_05y = "Arrow";
+	HR_Constraint_surv_02y = "Arrow";
+	HR_Constraint_adjuvant_tx = "Arrow";
+	HR_LinkMode = "[surv_05y:0][surv_02y:0][cN:0][cT:0][adjuvant_tx:0]";
+    }
+
+    node cT
+    {
+	label = "cT";
+	position = (386 47);
+	states = ("T2" "T3" "T4");
+	HR_LinkMode = "[grade:0][cTNM:0][cN:0][age:0][surv_05y:0][surv_02y:0][adjuvant_tx:0]";
+    }
+
+    node cN
+    {
+	label = "cN";
+	position = (516 104);
+	states = ("NX" "N0" "N1");
+	HR_LinkMode = "[cT:0][cTNM:0][age:0][surv_05y:0][surv_02y:0][adjuvant_tx:0]";
+    }
+
+    node age
+    {
+	label = "age";
+	position = (671 283);
+	states = ("75 - 79" "70 - 74" "66 - 69" "80+");
+	HR_LinkMode = "[surv_05y:0][surv_02y:0][cTNM:0][adjuvant_tx:0]";
+    }
+
+    node adjuvant_tx
+    {
+	label = "adjuvant_tx";
+	position = (445 370);
+	states = ("yes" "no");
+	HR_Constraint_surv_05y = "Arrow";
+	HR_Constraint_surv_02y = "Arrow";
+	HR_Constraint_cTNM = "NoArrow";
+	HR_LinkMode = "[surv_05y:0][surv_02y:0][grade:0][age:0][edition:0][cT:0][cTNM:0][cN:0]";
+    }
+
+    potential (surv_02y | adjuvant_tx cTNM)
+    {
+	data = ((( 0.0223881 0.977612 )	%  adjuvant_tx=yes  cTNM=II
+		 ( 0.0517241 0.948276 )	%  adjuvant_tx=yes  cTNM=III
+		 ( 0.131149 0.868851 )	%  adjuvant_tx=yes  cTNM=IV
+		 ( 0.0967742 0.903226 ))	%  adjuvant_tx=yes  cTNM=I
+		(( 0.0491803 0.95082 )	%  adjuvant_tx=no  cTNM=II
+		 ( 0.0925926 0.907407 )	%  adjuvant_tx=no  cTNM=III
+		 ( 0.0344828 0.965517 )	%  adjuvant_tx=no  cTNM=IV
+		 ( 0.057971 0.942029 )));	%  adjuvant_tx=no  cTNM=I
+	experience
+	     = (( 134	%  adjuvant_tx=yes  cTNM=II
+		  232	%  adjuvant_tx=yes  cTNM=III
+		  62	%  adjuvant_tx=yes  cTNM=IV
+		  31 )	%  adjuvant_tx=yes  cTNM=I
+		( 183	%  adjuvant_tx=no  cTNM=II
+		  108	%  adjuvant_tx=no  cTNM=III
+		  29	%  adjuvant_tx=no  cTNM=IV
+		  69 ));	%  adjuvant_tx=no  cTNM=I
+    }
+
+    potential (surv_05y | adjuvant_tx age cTNM surv_02y)
+    {
+	data = ((((( 1 0 )	%  adjuvant_tx=yes  age=75 - 79  cTNM=II  surv_02y=false
+		   ( 0.2 0.8 ))	%  adjuvant_tx=yes  age=75 - 79  cTNM=II  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=75 - 79  cTNM=III  surv_02y=false
+		   ( 0.190476 0.809524 ))	%  adjuvant_tx=yes  age=75 - 79  cTNM=III  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=75 - 79  cTNM=IV  surv_02y=false
+		   ( 0.266667 0.733333 ))	%  adjuvant_tx=yes  age=75 - 79  cTNM=IV  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=75 - 79  cTNM=I  surv_02y=false
+		   ( 0.230769 0.769231 )))	%  adjuvant_tx=yes  age=75 - 79  cTNM=I  surv_02y=true
+		 ((( 1 0 )	%  adjuvant_tx=yes  age=70 - 74  cTNM=II  surv_02y=false
+		   ( 0.125 0.875 ))	%  adjuvant_tx=yes  age=70 - 74  cTNM=II  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=70 - 74  cTNM=III  surv_02y=false
+		   ( 0.121951 0.878049 ))	%  adjuvant_tx=yes  age=70 - 74  cTNM=III  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=70 - 74  cTNM=IV  surv_02y=false
+		   ( 0.35 0.65 ))	%  adjuvant_tx=yes  age=70 - 74  cTNM=IV  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=70 - 74  cTNM=I  surv_02y=false
+		   ( 0 1 )))	%  adjuvant_tx=yes  age=70 - 74  cTNM=I  surv_02y=true
+		 ((( 0.5 0.5 )	%  adjuvant_tx=yes  age=66 - 69  cTNM=II  surv_02y=false
+		   ( 0.0740741 0.925926 ))	%  adjuvant_tx=yes  age=66 - 69  cTNM=II  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=66 - 69  cTNM=III  surv_02y=false
+		   ( 0.10345 0.89655 ))	%  adjuvant_tx=yes  age=66 - 69  cTNM=III  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=yes  age=66 - 69  cTNM=IV  surv_02y=false
+		   ( 0.187525 0.812475 ))	%  adjuvant_tx=yes  age=66 - 69  cTNM=IV  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=yes  age=66 - 69  cTNM=I  surv_02y=false
+		   ( 0 1 )))	%  adjuvant_tx=yes  age=66 - 69  cTNM=I  surv_02y=true
+		 ((( 1 0 )	%  adjuvant_tx=yes  age=80+  cTNM=II  surv_02y=false
+		   ( 0.25 0.75 ))	%  adjuvant_tx=yes  age=80+  cTNM=II  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=yes  age=80+  cTNM=III  surv_02y=false
+		   ( 0.25 0.75 ))	%  adjuvant_tx=yes  age=80+  cTNM=III  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=yes  age=80+  cTNM=IV  surv_02y=false
+		   ( 0.5 0.5 ))	%  adjuvant_tx=yes  age=80+  cTNM=IV  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=yes  age=80+  cTNM=I  surv_02y=false
+		   ( 0 1 ))))	%  adjuvant_tx=yes  age=80+  cTNM=I  surv_02y=true
+		(((( 1 0 )	%  adjuvant_tx=no  age=75 - 79  cTNM=II  surv_02y=false
+		   ( 0.209677 0.790323 ))	%  adjuvant_tx=no  age=75 - 79  cTNM=II  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=no  age=75 - 79  cTNM=III  surv_02y=false
+		   ( 0.307692 0.692308 ))	%  adjuvant_tx=no  age=75 - 79  cTNM=III  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=no  age=75 - 79  cTNM=IV  surv_02y=false
+		   ( 0.5 0.5 ))	%  adjuvant_tx=no  age=75 - 79  cTNM=IV  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=no  age=75 - 79  cTNM=I  surv_02y=false
+		   ( 0.181818 0.818182 )))	%  adjuvant_tx=no  age=75 - 79  cTNM=I  surv_02y=true
+		 ((( 1 0 )	%  adjuvant_tx=no  age=70 - 74  cTNM=II  surv_02y=false
+		   ( 0.166667 0.833333 ))	%  adjuvant_tx=no  age=70 - 74  cTNM=II  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=no  age=70 - 74  cTNM=III  surv_02y=false
+		   ( 0.176471 0.823529 ))	%  adjuvant_tx=no  age=70 - 74  cTNM=III  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=no  age=70 - 74  cTNM=IV  surv_02y=false
+		   ( 0.0833333 0.916667 ))	%  adjuvant_tx=no  age=70 - 74  cTNM=IV  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=no  age=70 - 74  cTNM=I  surv_02y=false
+		   ( 0.0869565 0.913043 )))	%  adjuvant_tx=no  age=70 - 74  cTNM=I  surv_02y=true
+		 ((( 1 0 )	%  adjuvant_tx=no  age=66 - 69  cTNM=II  surv_02y=false
+		   ( 0.148148 0.851852 ))	%  adjuvant_tx=no  age=66 - 69  cTNM=II  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=no  age=66 - 69  cTNM=III  surv_02y=false
+		   ( 0.16 0.84 ))	%  adjuvant_tx=no  age=66 - 69  cTNM=III  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=no  age=66 - 69  cTNM=IV  surv_02y=false
+		   ( 0.285714 0.714286 ))	%  adjuvant_tx=no  age=66 - 69  cTNM=IV  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=no  age=66 - 69  cTNM=I  surv_02y=false
+		   ( 0.0769231 0.923077 )))	%  adjuvant_tx=no  age=66 - 69  cTNM=I  surv_02y=true
+		 ((( 1 0 )	%  adjuvant_tx=no  age=80+  cTNM=II  surv_02y=false
+		   ( 0.307692 0.692308 ))	%  adjuvant_tx=no  age=80+  cTNM=II  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=no  age=80+  cTNM=III  surv_02y=false
+		   ( 0.307692 0.692308 ))	%  adjuvant_tx=no  age=80+  cTNM=III  surv_02y=true
+		  (( 1 0 )	%  adjuvant_tx=no  age=80+  cTNM=IV  surv_02y=false
+		   ( 0.666667 0.333333 ))	%  adjuvant_tx=no  age=80+  cTNM=IV  surv_02y=true
+		  (( 0.5 0.5 )	%  adjuvant_tx=no  age=80+  cTNM=I  surv_02y=false
+		   ( 0.285714 0.714286 )))));	%  adjuvant_tx=no  age=80+  cTNM=I  surv_02y=true
+	experience
+	     = (((( 1	%  adjuvant_tx=yes  age=75 - 79  cTNM=II  surv_02y=false
+		    40 )	%  adjuvant_tx=yes  age=75 - 79  cTNM=II  surv_02y=true
+		  ( 2	%  adjuvant_tx=yes  age=75 - 79  cTNM=III  surv_02y=false
+		    63 )	%  adjuvant_tx=yes  age=75 - 79  cTNM=III  surv_02y=true
+		  ( 1	%  adjuvant_tx=yes  age=75 - 79  cTNM=IV  surv_02y=false
+		    15 )	%  adjuvant_tx=yes  age=75 - 79  cTNM=IV  surv_02y=true
+		  ( 2	%  adjuvant_tx=yes  age=75 - 79  cTNM=I  surv_02y=false
+		    13 ))	%  adjuvant_tx=yes  age=75 - 79  cTNM=I  surv_02y=true
+		 (( 1	%  adjuvant_tx=yes  age=70 - 74  cTNM=II  surv_02y=false
+		    56 )	%  adjuvant_tx=yes  age=70 - 74  cTNM=II  surv_02y=true
+		  ( 5	%  adjuvant_tx=yes  age=70 - 74  cTNM=III  surv_02y=false
+		    82 )	%  adjuvant_tx=yes  age=70 - 74  cTNM=III  surv_02y=true
+		  ( 5	%  adjuvant_tx=yes  age=70 - 74  cTNM=IV  surv_02y=false
+		    20 )	%  adjuvant_tx=yes  age=70 - 74  cTNM=IV  surv_02y=true
+		  ( 1	%  adjuvant_tx=yes  age=70 - 74  cTNM=I  surv_02y=false
+		    9 ))	%  adjuvant_tx=yes  age=70 - 74  cTNM=I  surv_02y=true
+		 (( 0	%  adjuvant_tx=yes  age=66 - 69  cTNM=II  surv_02y=false
+		    27 )	%  adjuvant_tx=yes  age=66 - 69  cTNM=II  surv_02y=true
+		  ( 5	%  adjuvant_tx=yes  age=66 - 69  cTNM=III  surv_02y=false
+		    59 )	%  adjuvant_tx=yes  age=66 - 69  cTNM=III  surv_02y=true
+		  ( 0.131243	%  adjuvant_tx=yes  age=66 - 69  cTNM=IV  surv_02y=false
+		    16.8688 )	%  adjuvant_tx=yes  age=66 - 69  cTNM=IV  surv_02y=true
+		  ( 0	%  adjuvant_tx=yes  age=66 - 69  cTNM=I  surv_02y=false
+		    5 ))	%  adjuvant_tx=yes  age=66 - 69  cTNM=I  surv_02y=true
+		 (( 1	%  adjuvant_tx=yes  age=80+  cTNM=II  surv_02y=false
+		    8 )	%  adjuvant_tx=yes  age=80+  cTNM=II  surv_02y=true
+		  ( 0	%  adjuvant_tx=yes  age=80+  cTNM=III  surv_02y=false
+		    16 )	%  adjuvant_tx=yes  age=80+  cTNM=III  surv_02y=true
+		  ( 2	%  adjuvant_tx=yes  age=80+  cTNM=IV  surv_02y=false
+		    2 )	%  adjuvant_tx=yes  age=80+  cTNM=IV  surv_02y=true
+		  ( 0	%  adjuvant_tx=yes  age=80+  cTNM=I  surv_02y=false
+		    1 )))	%  adjuvant_tx=yes  age=80+  cTNM=I  surv_02y=true
+		((( 2	%  adjuvant_tx=no  age=75 - 79  cTNM=II  surv_02y=false
+		    62 )	%  adjuvant_tx=no  age=75 - 79  cTNM=II  surv_02y=true
+		  ( 6	%  adjuvant_tx=no  age=75 - 79  cTNM=III  surv_02y=false
+		    26 )	%  adjuvant_tx=no  age=75 - 79  cTNM=III  surv_02y=true
+		  ( 0	%  adjuvant_tx=no  age=75 - 79  cTNM=IV  surv_02y=false
+		    6 )	%  adjuvant_tx=no  age=75 - 79  cTNM=IV  surv_02y=true
+		  ( 3	%  adjuvant_tx=no  age=75 - 79  cTNM=I  surv_02y=false
+		    22 ))	%  adjuvant_tx=no  age=75 - 79  cTNM=I  surv_02y=true
+		 (( 4	%  adjuvant_tx=no  age=70 - 74  cTNM=II  surv_02y=false
+		    72 )	%  adjuvant_tx=no  age=70 - 74  cTNM=II  surv_02y=true
+		  ( 3	%  adjuvant_tx=no  age=70 - 74  cTNM=III  surv_02y=false
+		    34 )	%  adjuvant_tx=no  age=70 - 74  cTNM=III  surv_02y=true
+		  ( 0	%  adjuvant_tx=no  age=70 - 74  cTNM=IV  surv_02y=false
+		    12 )	%  adjuvant_tx=no  age=70 - 74  cTNM=IV  surv_02y=true
+		  ( 0	%  adjuvant_tx=no  age=70 - 74  cTNM=I  surv_02y=false
+		    23 ))	%  adjuvant_tx=no  age=70 - 74  cTNM=I  surv_02y=true
+		 (( 2	%  adjuvant_tx=no  age=66 - 69  cTNM=II  surv_02y=false
+		    27 )	%  adjuvant_tx=no  age=66 - 69  cTNM=II  surv_02y=true
+		  ( 0	%  adjuvant_tx=no  age=66 - 69  cTNM=III  surv_02y=false
+		    25 )	%  adjuvant_tx=no  age=66 - 69  cTNM=III  surv_02y=true
+		  ( 0	%  adjuvant_tx=no  age=66 - 69  cTNM=IV  surv_02y=false
+		    7 )	%  adjuvant_tx=no  age=66 - 69  cTNM=IV  surv_02y=true
+		  ( 1	%  adjuvant_tx=no  age=66 - 69  cTNM=I  surv_02y=false
+		    13 ))	%  adjuvant_tx=no  age=66 - 69  cTNM=I  surv_02y=true
+		 (( 1	%  adjuvant_tx=no  age=80+  cTNM=II  surv_02y=false
+		    13 )	%  adjuvant_tx=no  age=80+  cTNM=II  surv_02y=true
+		  ( 1	%  adjuvant_tx=no  age=80+  cTNM=III  surv_02y=false
+		    13 )	%  adjuvant_tx=no  age=80+  cTNM=III  surv_02y=true
+		  ( 1	%  adjuvant_tx=no  age=80+  cTNM=IV  surv_02y=false
+		    3 )	%  adjuvant_tx=no  age=80+  cTNM=IV  surv_02y=true
+		  ( 0	%  adjuvant_tx=no  age=80+  cTNM=I  surv_02y=false
+		    7 ))));	%  adjuvant_tx=no  age=80+  cTNM=I  surv_02y=true
+    }
+
+    potential (yod_cat)
+    {
+	data = ( 0.330189 0.363208 0.306604 );
+	experience = 848;
+    }
+
+    potential (grade)
+    {
+	data = ( 0.981466 0.0185338 );
+	experience = 848;
+    }
+
+    potential (edition | yod_cat)
+    {
+	data = (( 1 0 )	%  yod_cat=2005-2008
+		( 0 1 )	%  yod_cat=2012-2014
+		( 0.330769 0.669231 ));	%  yod_cat=2009-2011
+	experience
+	     = ( 280	%  yod_cat=2005-2008
+		 308	%  yod_cat=2012-2014
+		 260 );	%  yod_cat=2009-2011
+    }
+
+    potential (cTNM | cN cT edition)
+    {
+	data = (((( 1 0 0 0 )	%  cN=NX  cT=T2  edition=TNM 6
+		  ( 0.454545 0 0.0227273 0.522727 ))	%  cN=NX  cT=T2  edition=TNM 7
+		 (( 0 1 0 0 )	%  cN=NX  cT=T3  edition=TNM 6
+		  ( 0 0.975 0.025 0 ))	%  cN=NX  cT=T3  edition=TNM 7
+		 (( 0 0 1 0 )	%  cN=NX  cT=T4  edition=TNM 6
+		  ( 0 0 1 0 )))	%  cN=NX  cT=T4  edition=TNM 7
+		((( 0.977612 0 0.0223881 0 )	%  cN=N0  cT=T2  edition=TNM 6
+		  ( 0.585106 0 0.00531915 0.409574 ))	%  cN=N0  cT=T2  edition=TNM 7
+		 (( 0 0.968085 0.0319149 0 )	%  cN=N0  cT=T3  edition=TNM 6
+		  ( 0 0.987952 0.0120482 0 ))	%  cN=N0  cT=T3  edition=TNM 7
+		 (( 0 0 1 0 )	%  cN=N0  cT=T4  edition=TNM 6
+		  ( 0 0 1 0 )))	%  cN=N0  cT=T4  edition=TNM 7
+		((( 0 0 1 0 )	%  cN=N1  cT=T2  edition=TNM 6
+		  ( 0 0 1 0 ))	%  cN=N1  cT=T2  edition=TNM 7
+		 (( 0 0 1 0 )	%  cN=N1  cT=T3  edition=TNM 6
+		  ( 0 0 1 0 ))	%  cN=N1  cT=T3  edition=TNM 7
+		 (( 0 0 1 0 )	%  cN=N1  cT=T4  edition=TNM 6
+		  ( 0 0 1 0 ))));	%  cN=N1  cT=T4  edition=TNM 7
+	experience
+	     = ((( 56	%  cN=NX  cT=T2  edition=TNM 6
+		   44 )	%  cN=NX  cT=T2  edition=TNM 7
+		 ( 46	%  cN=NX  cT=T3  edition=TNM 6
+		   40 )	%  cN=NX  cT=T3  edition=TNM 7
+		 ( 7	%  cN=NX  cT=T4  edition=TNM 6
+		   4 ))	%  cN=NX  cT=T4  edition=TNM 7
+		(( 134	%  cN=N0  cT=T2  edition=TNM 6
+		   188 )	%  cN=N0  cT=T2  edition=TNM 7
+		 ( 94	%  cN=N0  cT=T3  edition=TNM 6
+		   166 )	%  cN=N0  cT=T3  edition=TNM 7
+		 ( 17	%  cN=N0  cT=T4  edition=TNM 6
+		   10 ))	%  cN=N0  cT=T4  edition=TNM 7
+		(( 7	%  cN=N1  cT=T2  edition=TNM 6
+		   5 )	%  cN=N1  cT=T2  edition=TNM 7
+		 ( 3	%  cN=N1  cT=T3  edition=TNM 6
+		   19 )	%  cN=N1  cT=T3  edition=TNM 7
+		 ( 2	%  cN=N1  cT=T4  edition=TNM 6
+		   6 )));	%  cN=N1  cT=T4  edition=TNM 7
+    }
+
+    potential (cT | grade)
+    {
+	data = (( 0.521457 0.442157 0.0363858 )	%  grade=g3
+		( 0 0 1 ));	%  grade=g2
+	experience
+	     = ( 832.283	%  grade=g3
+		 15.7167 );	%  grade=g2
+    }
+
+    potential (cN | edition cT)
+    {
+	data = ((( 0.284264 0.680203 0.035533 )	%  edition=TNM 6  cT=T2
+		 ( 0.321678 0.657343 0.020979 )	%  edition=TNM 6  cT=T3
+		 ( 0.269231 0.653846 0.0769231 ))	%  edition=TNM 6  cT=T4
+		(( 0.185654 0.793249 0.021097 )	%  edition=TNM 7  cT=T2
+		 ( 0.177778 0.737778 0.0844444 )	%  edition=TNM 7  cT=T3
+		 ( 0.2 0.5 0.3 )));	%  edition=TNM 7  cT=T4
+	experience
+	     = (( 197	%  edition=TNM 6  cT=T2
+		  143	%  edition=TNM 6  cT=T3
+		  26 )	%  edition=TNM 6  cT=T4
+		( 237	%  edition=TNM 7  cT=T2
+		  225	%  edition=TNM 7  cT=T3
+		  20 ));	%  edition=TNM 7  cT=T4
+    }
+
+    potential (age)
+    {
+	data = ( 0.311321 0.385613 0.221698 0.0813679 );
+	experience = 848;
+    }
+
+    potential (adjuvant_tx | cTNM)
+    {
+	data = (( 0.422713 0.577287 )	%  cTNM=II
+		( 0.682353 0.317647 )	%  cTNM=III
+		( 0.681319 0.318681 )	%  cTNM=IV
+		( 0.31 0.69 ));	%  cTNM=I
+	experience
+	     = ( 317	%  cTNM=II
+		 340	%  cTNM=III
+		 91	%  cTNM=IV
+		 100 );	%  cTNM=I
+    }
+} % class test
